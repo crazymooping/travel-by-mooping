@@ -179,7 +179,7 @@
                             </h3>
                             <span id="moopingBadge" class="bg-amber-100 text-amber-900 border border-amber-200 text-[10px] font-bold px-2 py-0.5 rounded-full">🐷 หมูปิ้ง: 0</span>
                         </div>
-                        <ul id="placesList" class="space-y-2 text-xs max-h-44 overflow-y-auto pr-1"></ul>
+                        <ul id="placesList" class="space-y-2 text-xs max-h-64 overflow-y-auto pr-1"></ul>
                     </div>
 
                     <div class="glass-card rounded-3xl p-5 shadow-sm">
@@ -189,7 +189,7 @@
                             </h3>
                             <span id="memberCountBadge" class="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded-full">0 คน</span>
                         </div>
-                        <div id="membersList" class="space-y-2 text-xs max-h-44 overflow-y-auto pr-1"></div>
+                        <div id="membersList" class="space-y-2.5 text-xs max-h-64 overflow-y-auto pr-1"></div>
                     </div>
                 </div>
 
@@ -202,7 +202,6 @@
     <script>
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwB0X0z2hWCDHeJNYlensXgmlQFEAPAppJfj2mZk_NKe4713HbKBcGJla0qCLuvNkmh/exec';
 
-        // Default setup for Jan 2027 (matching Sheet Data)
         let currentYear = 2027;
         let currentMonth = 0; // 0 = Jan
         let summaryYear = 2027;
@@ -212,6 +211,7 @@
         let groupData = [];
 
         const monthNamesTH = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+        const shortMonthNamesTH = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
 
         document.addEventListener('DOMContentLoaded', () => {
             renderFormCalendar();
@@ -219,8 +219,8 @@
         });
 
         function cleanDateStr(dStr) {
-            dStr = dStr.trim();
-            // Standardize format to YYYY-MM-DD
+            if(!dStr) return '';
+            dStr = String(dStr).trim();
             if (dStr.includes('T')) dStr = dStr.split('T')[0];
             const parts = dStr.split('-');
             if (parts.length === 3) {
@@ -324,6 +324,14 @@
             const parts = dateStr.split('-');
             if(parts.length < 3) return dateStr;
             return `${parseInt(parts[2])} ${monthNamesTH[parseInt(parts[1]) - 1]} ${parseInt(parts[0]) + 543}`;
+        }
+
+        function formatShortDate(dateStr) {
+            if(!dateStr) return '';
+            const parts = dateStr.split('-');
+            if(parts.length < 3) return dateStr;
+            const shortYear = (parseInt(parts[0]) + 543).toString().substring(2);
+            return `${parseInt(parts[2])} ${shortMonthNamesTH[parseInt(parts[1]) - 1]} ${shortYear}`;
         }
 
         async function submitForm(e) {
@@ -495,6 +503,7 @@
                     moopingCount++;
                 }
 
+                // Render Places
                 const pLi = document.createElement('li');
                 pLi.className = 'bg-slate-50/80 p-2.5 rounded-xl border border-slate-100 flex items-center justify-between';
                 pLi.innerHTML = `
@@ -503,14 +512,24 @@
                 `;
                 placesList.appendChild(pLi);
 
+                // Render Member & Their Selected Mini Date Badges
+                const dateChipsHTML = m.dates.map(d => 
+                    `<span class="bg-emerald-100/80 text-emerald-900 border border-emerald-200 text-[10px] px-1.5 py-0.5 rounded-md font-medium">${formatShortDate(d)}</span>`
+                ).join(' ');
+
                 const mLi = document.createElement('div');
-                mLi.className = 'bg-slate-50/80 p-2.5 rounded-xl border border-slate-100 flex items-center justify-between';
+                mLi.className = 'bg-slate-50/80 p-3 rounded-2xl border border-slate-100 space-y-2';
                 mLi.innerHTML = `
-                    <div>
-                        <span class="font-semibold text-slate-800">${m.name}</span>
-                        <span class="text-[10px] text-emerald-600 block font-medium">ว่าง ${m.dates.length} วัน</span>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-slate-800 text-xs">${m.name}</span>
+                            <span class="text-[10px] bg-emerald-50 text-emerald-600 font-semibold px-2 py-0.5 rounded-full border border-emerald-200/50">ว่าง ${m.dates.length} วัน</span>
+                        </div>
+                        ${m.note ? `<span class="text-[10px] bg-amber-50 text-amber-900 border border-amber-200 px-2 py-0.5 rounded-lg max-w-[110px] truncate" title="${m.note}">${m.note}</span>` : ''}
                     </div>
-                    ${m.note ? `<span class="text-[10px] bg-amber-50 text-amber-900 border border-amber-200 px-2 py-0.5 rounded-lg max-w-[120px] truncate">${m.note}</span>` : ''}
+                    <div class="flex flex-wrap gap-1 pt-1 border-t border-slate-200/50">
+                        ${dateChipsHTML || '<span class="text-[10px] text-slate-400">ไม่ได้เลือกวัน</span>'}
+                    </div>
                 `;
                 membersList.appendChild(mLi);
             });
