@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>จัดทริปเที่ยวกลุ่มเพื่อน - ลงวันว่าง</title>
+    <title>ทริปห้ามล่มไอ้พวกเหี้ย - ลงวันว่าง</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -13,34 +13,28 @@
     <style>
         body { font-family: 'Kanit', sans-serif; background-color: #f8fafc; }
         .glass-card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(226, 232, 240, 0.8);
         }
-        .calendar-btn {
-            transition: all 0.15s ease-in-out;
-        }
-        .calendar-btn:active {
-            transform: scale(0.92);
-        }
-        /* Custom Scrollbar */
+        .calendar-btn { transition: all 0.15s ease-in-out; }
+        .calendar-btn:active { transform: scale(0.92); }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
 <body class="min-h-screen text-slate-800 pb-16">
 
     <!-- Header Navigation -->
-    <header class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-700 text-white shadow-md sticky top-0 z-30 backdrop-blur-md bg-opacity-95">
+    <header class="bg-gradient-to-r from-teal-700 to-emerald-700 text-white shadow-md sticky top-0 z-30">
         <div class="max-w-5xl mx-auto px-4 py-3.5 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shadow-inner backdrop-blur-sm">
+                <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shadow-inner">
                     <i class="fa-solid fa-compass text-xl text-amber-300"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg md:text-xl font-bold tracking-tight">ทริปห้ามล่มไอ้พวกเชี่ย</h1>
+                    <h1 class="text-lg md:text-xl font-bold tracking-tight">ทริปห้ามล่มไอ้พวกเหี้ย 🚀</h1>
                     <p class="text-emerald-100 text-[11px] font-light">เช็กวันว่างในการเที่ยว</p>
                 </div>
             </div>
@@ -53,22 +47,18 @@
     <main class="max-w-5xl mx-auto px-4 mt-6 space-y-6">
 
         <!-- Hero Best Date Banner -->
-        <div id="bestDateBanner" class="relative overflow-hidden bg-gradient-to-br from-emerald-500 via-teal-600 to-emerald-800 rounded-3xl p-6 text-white shadow-xl">
-            <!-- Background Decorative Circles -->
-            <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
-            <div class="absolute right-20 -top-10 w-24 h-24 bg-amber-300/20 rounded-full blur-lg pointer-events-none"></div>
-
+        <div id="bestDateBanner" class="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-700 to-emerald-800 rounded-3xl p-6 text-white shadow-xl">
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-5">
                 <div class="flex items-center gap-4 w-full md:w-auto">
-                    <div class="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shrink-0 shadow-sm">
-                        <i class="fa-solid fa-crown text-3xl text-amber-300 drop-shadow"></i>
+                    <div class="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shrink-0">
+                        <i class="fa-solid fa-crown text-3xl text-amber-300"></i>
                     </div>
                     <div>
                         <span class="inline-block bg-emerald-950/40 border border-white/10 text-emerald-200 text-[11px] px-3 py-0.5 rounded-full font-medium mb-1">
                             ✨ วันที่คนว่างพร้อมกันมากที่สุด
                         </span>
-                        <h2 id="bestDateText" class="text-2xl md:text-3xl font-extrabold tracking-tight">ยังไม่มีข้อมูลวันว่าง</h2>
-                        <p id="bestDateSub" class="text-emerald-100 text-xs md:text-sm mt-0.5 font-light">กรอกข้อมูลเป็นคนแรกเพื่อเริ่มจัดทริปทัวร์กลุ่ม!</p>
+                        <h2 id="bestDateText" class="text-2xl md:text-3xl font-extrabold tracking-tight">กำลังโหลดข้อมูล...</h2>
+                        <p id="bestDateSub" class="text-emerald-100 text-xs md:text-sm mt-0.5 font-light">กำลังดึงข้อมูลจาก Google Sheet</p>
                     </div>
                 </div>
                 <button onclick="copyLineSummary()" class="w-full md:w-auto bg-white hover:bg-emerald-50 active:scale-95 text-emerald-800 font-bold px-5 py-3 rounded-2xl shadow-lg transition flex items-center justify-center gap-2 text-sm shrink-0">
@@ -77,7 +67,7 @@
             </div>
         </div>
 
-        <!-- Layout Grid: Form (Left) & Dashboard (Right) -->
+        <!-- Layout Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
             <!-- Form Section -->
@@ -93,17 +83,12 @@
                 </div>
 
                 <form id="tripForm" onsubmit="submitForm(event)" class="space-y-4">
-                    <!-- 1. Name Input -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1.5">1. ชื่อของคุณ <span class="text-rose-500">*</span></label>
-                        <div class="relative">
-                            <span class="absolute left-3.5 top-3 text-slate-400 text-xs"><i class="fa-solid fa-user"></i></span>
-                            <input type="text" id="inputName" required placeholder="ใส่ชื่อของคุณ เช่น หมูปิ้ง, ไอ้โล้น" 
-                                class="w-full pl-9 pr-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white text-xs text-slate-800 transition">
-                        </div>
+                        <input type="text" id="inputName" required placeholder="ใส่ชื่อของคุณ เช่น หมูปิ้ง, ไอ้มิน" 
+                            class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white text-xs text-slate-800 transition">
                     </div>
 
-                    <!-- 2. Interactive Calendar -->
                     <div>
                         <div class="flex items-center justify-between mb-1.5">
                             <label class="block text-xs font-semibold text-slate-700">2. เลือกวันที่สะดวก/ว่าง <span class="text-rose-500">*</span></label>
@@ -111,28 +96,22 @@
                         </div>
                         
                         <div class="bg-slate-50/80 p-3 rounded-2xl border border-slate-200/80">
-                            <!-- Month Nav -->
                             <div class="flex items-center justify-between mb-2">
                                 <button type="button" onclick="changeMonth(-1)" class="w-7 h-7 hover:bg-slate-200/70 rounded-lg text-slate-600 transition flex items-center justify-center text-xs"><i class="fa-solid fa-chevron-left"></i></button>
-                                <span id="calendarMonthLabel" class="text-xs font-bold text-slate-700">พฤศจิกายน 2026</span>
+                                <span id="calendarMonthLabel" class="text-xs font-bold text-slate-700">มกราคม 2570</span>
                                 <button type="button" onclick="changeMonth(1)" class="w-7 h-7 hover:bg-slate-200/70 rounded-lg text-slate-600 transition flex items-center justify-center text-xs"><i class="fa-solid fa-chevron-right"></i></button>
                             </div>
-                            
-                            <!-- Weekdays Header -->
                             <div class="grid grid-cols-7 text-center text-[10px] font-bold text-slate-400 mb-1">
                                 <div class="text-rose-400">อา</div><div>จ</div><div>อ</div><div>พ</div><div>พฤ</div><div>ศ</div><div class="text-emerald-600">ส</div>
                             </div>
-                            
-                            <!-- Calendar Grid -->
                             <div id="formCalendarGrid" class="grid grid-cols-7 gap-1 text-center text-xs"></div>
                         </div>
                     </div>
 
-                    <!-- 3. Preferred Place -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1.5">3. อยากไปเที่ยวไหนเป็นพิเศษมั้ย?</label>
                         <div class="relative">
-                            <input type="text" id="inputPlace" placeholder="ระบุสถานที่ เช่น ชะอำ, กาญจนบุรี" 
+                            <input type="text" id="inputPlace" placeholder="ระบุสถานที่ เช่น กาญจนบุรี, ชะอำ" 
                                 class="w-full pl-3.5 pr-32 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white text-xs text-slate-800 transition">
                             <button type="button" onclick="setMoopingPlace()" class="absolute right-1 top-1 bottom-1 bg-amber-100 hover:bg-amber-200 text-amber-900 text-[11px] font-bold px-2.5 rounded-lg transition flex items-center gap-1 border border-amber-300/70 active:scale-95">
                                 🐷 แล้วแต่ไอ้หมูปิ้ง
@@ -140,15 +119,13 @@
                         </div>
                     </div>
 
-                    <!-- 4. Additional Note -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1.5">4. หมายเหตุเพิ่มเติม</label>
-                        <textarea id="inputNote" rows="2" placeholder="เช่น ห้ามเลื่อนทริป, สะดวกเฉพาะช่วงเย็น" 
+                        <textarea id="inputNote" rows="2" placeholder="เช่น ห้ามเลื่อนทริป" 
                             class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white text-xs text-slate-800 transition"></textarea>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-3 rounded-xl shadow-md transition duration-200 flex items-center justify-center gap-2 text-xs md:text-sm active:scale-98">
+                    <button type="submit" id="submitBtn" class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-xs md:text-sm active:scale-98">
                         <i class="fa-solid fa-paper-plane"></i> บันทึกข้อมูลวันว่าง
                     </button>
                 </form>
@@ -157,7 +134,6 @@
             <!-- Heatmap Calendar & Group Summary -->
             <div class="lg:col-span-7 space-y-6">
 
-                <!-- Calendar Heatmap Card -->
                 <div class="glass-card rounded-3xl p-6 shadow-sm">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3 mb-4">
                         <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
@@ -166,34 +142,23 @@
                             </span>
                             ตารางความพร้อมของกลุ่ม
                         </h2>
-                        <!-- Color Legend -->
-                        <div class="flex items-center gap-1.5 text-[10px] text-slate-500">
-                            <span>น้อย</span>
-                            <span class="w-2.5 h-2.5 rounded-md bg-slate-100 border"></span>
-                            <span class="w-2.5 h-2.5 rounded-md bg-emerald-100"></span>
-                            <span class="w-2.5 h-2.5 rounded-md bg-emerald-300"></span>
-                            <span class="w-2.5 h-2.5 rounded-md bg-emerald-500"></span>
-                            <span class="w-2.5 h-2.5 rounded-md bg-emerald-700"></span>
-                            <span>มาก</span>
-                        </div>
+                        <button onclick="fetchSheetData()" class="text-xs text-teal-700 hover:text-teal-900 font-medium flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-right"></i> รีเฟรชข้อมูล
+                        </button>
                     </div>
 
-                    <!-- Summary Month Nav -->
                     <div class="flex items-center justify-between mb-3 bg-slate-50/80 p-2 rounded-xl border border-slate-200/60">
                         <button onclick="changeSummaryMonth(-1)" class="w-7 h-7 hover:bg-slate-200/70 rounded-lg text-slate-600 transition flex items-center justify-center text-xs"><i class="fa-solid fa-chevron-left"></i></button>
-                        <span id="summaryMonthLabel" class="text-xs font-bold text-slate-700">พฤศจิกายน 2026</span>
+                        <span id="summaryMonthLabel" class="text-xs font-bold text-slate-700">มกราคม 2570</span>
                         <button onclick="changeSummaryMonth(1)" class="w-7 h-7 hover:bg-slate-200/70 rounded-lg text-slate-600 transition flex items-center justify-center text-xs"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
 
-                    <!-- Summary Weekdays -->
                     <div class="grid grid-cols-7 text-center text-[10px] font-bold text-slate-400 mb-1.5">
                         <div class="text-rose-400">อา</div><div>จ</div><div>อ</div><div>พ</div><div>พฤ</div><div>ศ</div><div class="text-emerald-600">ส</div>
                     </div>
 
-                    <!-- Summary Calendar Grid -->
                     <div id="summaryCalendarGrid" class="grid grid-cols-7 gap-1.5"></div>
 
-                    <!-- Interactive Day Detail Modal Box -->
                     <div id="dayDetailBox" class="mt-4 p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200/60 hidden transition-all">
                         <div class="flex items-center justify-between border-b border-emerald-200/50 pb-2 mb-2">
                             <h4 id="detailDateTitle" class="font-bold text-xs text-slate-800">รายละเอียดวันว่าง</h4>
@@ -206,10 +171,7 @@
                     </div>
                 </div>
 
-                <!-- Sub-cards: Destination Suggestions & Member Answers -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    
-                    <!-- Destination List -->
                     <div class="glass-card rounded-3xl p-5 shadow-sm">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
                             <h3 class="font-bold text-xs text-slate-800 flex items-center gap-1.5">
@@ -220,7 +182,6 @@
                         <ul id="placesList" class="space-y-2 text-xs max-h-44 overflow-y-auto pr-1"></ul>
                     </div>
 
-                    <!-- Member Responses List -->
                     <div class="glass-card rounded-3xl p-5 shadow-sm">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
                             <h3 class="font-bold text-xs text-slate-800 flex items-center gap-1.5">
@@ -230,7 +191,6 @@
                         </div>
                         <div id="membersList" class="space-y-2 text-xs max-h-44 overflow-y-auto pr-1"></div>
                     </div>
-
                 </div>
 
             </div>
@@ -240,26 +200,42 @@
     </main>
 
     <script>
-        // *** CONFIG GOOGLE APPS SCRIPT URL ***
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzbBh7Y28KHGxYwfkXE6-VaGgFHPhbA80SRSCLdo2r7ehALOeQCznUnmJgqO9eb6S3O/exec';
 
-        // State Variables
-        let currentYear = 2026;
-        let currentMonth = 10; // 0-indexed (10 = Nov)
-        let summaryYear = 2026;
-        let summaryMonth = 10;
+        // Set default to Jan 2027 (matching sheet data)
+        let currentYear = 2027;
+        let currentMonth = 0; // Jan
+        let summaryYear = 2027;
+        let summaryMonth = 0;
         
         let selectedDates = [];
-        let groupData = JSON.parse(localStorage.getItem('trip_group_data') || '[]');
+        let groupData = [];
 
         const monthNamesTH = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
 
-        // Initialize App
         document.addEventListener('DOMContentLoaded', () => {
             renderFormCalendar();
-            renderSummaryCalendar();
-            updateDashboard();
+            fetchSheetData();
         });
+
+        async function fetchSheetData() {
+            try {
+                const res = await fetch(GOOGLE_SCRIPT_URL);
+                const data = await res.json();
+                if (Array.isArray(data)) {
+                    groupData = data.map(item => ({
+                        name: item.name || '',
+                        dates: typeof item.dates === 'string' ? item.dates.split(',').map(d => d.trim()) : (item.dates || []),
+                        note: item.note || '',
+                        place: item.place || ''
+                    }));
+                }
+            } catch (e) {
+                console.log("Using Local Cache");
+                groupData = JSON.parse(localStorage.getItem('trip_group_data') || '[]');
+            }
+            updateDashboard();
+        }
 
         function scrollToForm() {
             document.getElementById('formSection').scrollIntoView({ behavior: 'smooth' });
@@ -322,8 +298,10 @@
         }
 
         function formatDisplayDate(dateStr) {
-            const [y, m, d] = dateStr.split('-');
-            return `${parseInt(d)} ${monthNamesTH[parseInt(m) - 1]}`;
+            if(!dateStr) return '';
+            const parts = dateStr.split('-');
+            if(parts.length < 3) return dateStr;
+            return `${parseInt(parts[2])} ${monthNamesTH[parseInt(parts[1]) - 1]}`;
         }
 
         async function submitForm(e) {
@@ -332,14 +310,8 @@
             const place = document.getElementById('inputPlace').value.trim() || 'แล้วแต่ไอ้หมูปิ้ง';
             const note = document.getElementById('inputNote').value.trim();
 
-            if (!name) {
-                alert('กรุณากรอกชื่อของคุณ');
-                return;
-            }
-            if (selectedDates.length === 0) {
-                alert('กรุณาเลือกวันที่สะดวกอย่างน้อย 1 วัน');
-                return;
-            }
+            if (!name) { alert('กรุณากรอกชื่อของคุณ'); return; }
+            if (selectedDates.length === 0) { alert('กรุณาเลือกวันที่สะดวกอย่างน้อย 1 วัน'); return; }
 
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
@@ -349,16 +321,9 @@
                 name: name,
                 dates: selectedDates,
                 place: place,
-                note: note,
-                timestamp: new Date().toLocaleString('th-TH')
+                note: note
             };
 
-            // Local State Save
-            groupData = groupData.filter(m => m.name !== name);
-            groupData.push(formData);
-            localStorage.setItem('trip_group_data', JSON.stringify(groupData));
-
-            // Sync with Google Apps Script Sheet
             try {
                 await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
@@ -367,13 +332,16 @@
                     body: JSON.stringify(formData)
                 });
             } catch (err) {
-                console.error("Google Sheet Sync Error:", err);
+                console.error("Sync Error:", err);
             }
+
+            groupData = groupData.filter(m => m.name !== name);
+            groupData.push(formData);
+            localStorage.setItem('trip_group_data', JSON.stringify(groupData));
 
             submitBtn.disabled = false;
             submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> บันทึกข้อมูลวันว่าง`;
 
-            // Clear Form
             document.getElementById('inputName').value = '';
             document.getElementById('inputPlace').value = '';
             document.getElementById('inputNote').value = '';
@@ -382,7 +350,8 @@
 
             renderFormCalendar();
             updateDashboard();
-            alert('บันทึกข้อมูลสำเร็จ! ลงในระบบและ Google Sheet เรียบร้อยแล้ว');
+            alert('บันทึกข้อมูลเรียบร้อยแล้ว!');
+            setTimeout(fetchSheetData, 1500);
         }
 
         function updateDashboard() {
@@ -462,7 +431,7 @@
         function calculateBestDate() {
             if (groupData.length === 0) {
                 document.getElementById('bestDateText').innerText = "ยังไม่มีข้อมูลวันว่าง";
-                document.getElementById('bestDateSub').innerText = "กรอกข้อมูลเป็นคนแรกเพื่อเริ่มจัดทริปทัวร์กลุ่ม!";
+                document.getElementById('bestDateSub').innerText = "กรอกข้อมูลคนแรกเพื่อเริ่มจัดทริป!";
                 return;
             }
 
@@ -497,16 +466,13 @@
             membersList.innerHTML = '';
 
             let moopingCount = 0;
-
             document.getElementById('memberCountBadge').innerText = `${groupData.length} คน`;
 
             groupData.forEach(m => {
-                // Count Mooping Shortcut
                 if (m.place.includes('แล้วแต่ไอ้หมูปิ้ง') || m.place.includes('หมูปิ้ง')) {
                     moopingCount++;
                 }
 
-                // Render Place Item
                 const pLi = document.createElement('li');
                 pLi.className = 'bg-slate-50/80 p-2.5 rounded-xl border border-slate-100 flex items-center justify-between';
                 pLi.innerHTML = `
@@ -515,7 +481,6 @@
                 `;
                 placesList.appendChild(pLi);
 
-                // Render Member Item
                 const mLi = document.createElement('div');
                 mLi.className = 'bg-slate-50/80 p-2.5 rounded-xl border border-slate-100 flex items-center justify-between';
                 mLi.innerHTML = `
@@ -558,10 +523,8 @@
                 text += `- ${m.name}: ${m.place}\n`;
             });
 
-            text += `\nกดเข้ามากรอกวันว่างเพิ่มเติมกันได้เลยครับ!`;
-
             navigator.clipboard.writeText(text).then(() => {
-                alert('คัดลอกข้อความสรุปเรียบร้อย! นำไปวาง (Paste) ลงกลุ่ม LINE ได้เลยครับ');
+                alert('คัดลอกข้อความสรุปเรียบร้อย!');
             });
         }
     </script>
